@@ -94,8 +94,9 @@ nest-asyncio==1.6.0
 notebook==7.5.1
 notebook_shim==0.2.4
 numba==0.57.1
-numpy==1.24.3
+numpy
 oauthlib==3.3.1
+opencv-python-headless
 opt_einsum==3.4.0
 optree==0.18.0
 overrides==7.7.0
@@ -104,7 +105,7 @@ pandas==2.1.0
 pandocfilters==1.5.1
 parso==0.8.5
 pexpect==4.9.0
-pillow==10.4.0
+pillow
 platformdirs==4.5.1
 pooch==1.8.2
 prometheus_client==0.23.1
@@ -145,13 +146,11 @@ soundfile==0.13.1
 soupsieve==2.8.1
 soxr==1.0.0
 stack-data==0.6.3
-streamlit==1.22.0
+streamlit
 tenacity==8.5.0
-tensorboard==2.10.1
 tensorboard-data-server==0.6.1
 tensorboard-plugin-wit==1.8.1
-tensorflow==2.10.0
-tensorflow-estimator==2.10.0
+tensorflow==2.12.0
 tensorflow-io-gcs-filesystem==0.37.1
 termcolor==3.3.0
 terminado==0.18.1
