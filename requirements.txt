@@ -1,5 +1,8 @@
+ftfy
+git+https://github.com/openai/CLIP.git
+numpy<2.0
+opencv-python-headless
+Pillow
+regex
 streamlit
 tensorflow-cpu==2.12.0
-numpy<2.0
-Pillow
-opencv-python-headless
