@@ -35,10 +35,25 @@ This platform aims to:
 ## Key Features
 
 - 📤 **OCT Image Upload**
+- 🔍 **CLIP-Based Input Validation** — Rejects non-OCT images before classification using OpenAI's CLIP model
 - 🤖 **Deep Learning–Based Classification**
-- 📊 **4-Class Retinal Disease Prediction**
+- 📊 **4-Class Retinal Disease Prediction with Confidence Score**
 - 📚 **Clinical Recommendations & Explanations**
 - 🌐 **Deployed with Streamlit Cloud**
+
+---
+
+## Input Validation
+
+To ensure the platform only processes valid medical images, a **CLIP (Contrastive Language–Image Pretraining)** model by OpenAI is used as a semantic gate before any disease classification occurs.
+
+When an image is uploaded, CLIP evaluates its visual content against descriptors including:
+- `"an OCT retinal scan"`
+- `"a photograph of a person"`
+- `"a natural photograph"`
+- `"a medical image that is not an eye scan"`
+
+If the image does not match the OCT scan descriptor with sufficient confidence, the app rejects it with a clear error message — preventing misclassification of portraits, photographs, or unrelated medical images.
 
 ---
 
@@ -46,6 +61,7 @@ This platform aims to:
 
 - **Architecture:** MobileNetV3 (pre-trained + fine-tuned)
 - **Framework:** TensorFlow 2.10.0
+- **Input Validation:** OpenAI CLIP (`ViT-B/32`)
 - **Input Size:** 224 × 224 RGB images
 - **Output Classes:** 4 (CNV, DME, Drusen, Normal)
 - **Metrics Used (Training):**
@@ -73,8 +89,8 @@ Images were obtained from multiple international medical institutions and underw
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/iamsamuelk/Eye_Disease_Prediction_OCT_Scan.git
+cd Eye_Disease_Prediction_OCT_Scan
 ```
 
 ### 2️⃣ Create a Virtual Environment
@@ -88,6 +104,7 @@ source tensorflow_env/bin/activate
 
 ```bash
 pip install -r requirements.txt
+pip install git+https://github.com/openai/CLIP.git
 ```
 
 **Note: This project is built with TensorFlow 2.10.0. For best compatibility, use Python 3.10.**
@@ -98,12 +115,17 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+> On first run, CLIP will automatically download the `ViT-B/32` model weights (~350MB) and cache them locally. Subsequent runs load instantly.
+
+---
+
 ## How to Use the App
 
 1. **Upload** an OCT image via the interface.
-2. Click **Predict**.
-3. **View** the predicted retinal condition.
-4. Expand **"Learn More"** to read clinical explanations and recommendations.
+2. The app **validates** the image using CLIP — non-OCT images are rejected immediately.
+3. Click **Predict**.
+4. **View** the predicted retinal condition and confidence score.
+5. Expand **"Learn More"** to read clinical explanations and recommendations.
 
 ---
 
@@ -133,15 +155,17 @@ streamlit run app.py
 
 ## ⚠️ Disclaimer
 
-> This application is intended for **educational and research purposes only**.
-> It does **not** replace professional medical diagnosis or treatment.
+> This application is intended for **educational and research purposes only**.  
+> It does **not** replace professional medical diagnosis or treatment.  
 > Always consult a qualified ophthalmologist or healthcare provider for medical advice.
 
+---
 
 ## 🙌 Acknowledgments
 
 * Retinal OCT Dataset Contributors
 * TensorFlow & Keras
+* OpenAI CLIP
 * Streamlit
 * Open-source community
 * Spotless Tech
